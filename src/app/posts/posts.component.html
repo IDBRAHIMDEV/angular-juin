@@ -1,0 +1,68 @@
+<h1 class="my-4">List Post</h1>
+
+
+   <div class="row">
+     <div class="col-md-6 mx-auto">
+       
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input 
+            id="title"
+            class="form-control mb-2" 
+            type="text" 
+            placeholder="Title"
+            [(ngModel)]="post.title"
+        >
+      </div>
+       
+     <div class="form-group">
+       <label for="body">Body</label>
+       <textarea 
+          [(ngModel)]="post.body" 
+          placeholder="Body" 
+          class="form-control mb-2"
+          id="body"
+          rows="4">
+        </textarea>
+     
+      </div>
+
+      <!-- {{ post | json }} -->
+      
+      <button *ngIf="editable" (click)="updatePost()" class="btn btn-block btn-danger">
+          <i class="fa fa-refresh"></i> Update
+        </button>
+
+      <button *ngIf="!editable" (click)="createPost()" class="btn btn-block btn-primary">
+        <i class="fa fa-send"></i> Add
+      </button>
+
+     </div>
+   </div>
+
+
+<table class="table mt-3">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Body</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let post of myPosts; index as i">
+      <td scope="row">{{ post.id }}</td>
+      <td>{{ post.title }}</td>
+      <td>{{ post.body }}</td>
+      <td class="text-right" nowrap>
+        <button (click)="editPost(post)" class="btn btn-dark btn-sm">
+          <i class="fa fa-pencil"></i>
+        </button>
+        <button (click)="deletePost(post.id, i)" class="btn btn-danger btn-sm">
+          <i class="fa fa-times"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

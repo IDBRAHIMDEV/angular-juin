@@ -12,6 +12,19 @@ import { FormsModule } from '@angular/forms';
 import { CoursesComponent } from './courses/courses.component';
 import { VotesComponent } from './votes/votes.component';
 
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule, Routes } from '@angular/router';
+
+import { PostsComponent } from './posts/posts.component';
+
+
+const routes: Routes = [
+  { path: 'persons', component: DashboardComponent },
+  { path: 'courses', component: CoursesComponent },
+  { path: 'posts', component: PostsComponent }
+];
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,11 +34,14 @@ import { VotesComponent } from './votes/votes.component';
     Content1Component,
     Content2Component,
     CoursesComponent,
-    VotesComponent
+    VotesComponent,
+    PostsComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
