@@ -2,17 +2,97 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-9">
-      <app-content2></app-content2>
+    <div class="col-md-12">
+     
+      
+      <h1>{{ myTitle }}</h1>
+             
+      <input 
+         class="form-control mb-2" 
+         type="text" 
+         placeholder="First name"
+         [(ngModel)]="newPerson.firstName"
+      >
 
-      <hr>
+      <input 
+          class="form-control mb-2" 
+          type="number" 
+          placeholder="Age"
+          [(ngModel)]="newPerson.age"
+      >
+      <div class="row" *ngIf="editable">
+          <div class="col-md-6">
+               <button  (click)="updatePerson()" class=" my-2 btn btn-warning btn-block">
+          <i class="fa fa-refresh"></i> update Person
+      </button>
+          </div>
+          <div class="col-md-6">
+                  <button (click)="resetPerson()" class=" my-2 btn btn-info btn-block">
+                          <i class="fa fa-refresh"></i> reset
+                  </button>
+          </div>
+      </div>
+     
 
-      <app-content1></app-content1>
+      
 
-    </div>
-    <div class="col-md-3">
-  <app-sidebar></app-sidebar>
-    
+      <button  *ngIf="!editable" (click)="addPerson()" class=" my-2 btn btn-primary btn-block">
+              <i class="fa fa-send"></i> Person
+          </button>
+
+       <!-- <em>{{ newPerson }}</em> -->
+      <ul 
+        class="list-group" 
+        *ngIf="persons.length">
+          <li 
+            class="list-group-item" 
+            *ngFor="let person of persons; index as i"
+           
+            >{{ person.firstName  }}  
+            <span class="badge badge-success">{{ person.age }} old</span>
+              
+              like : {{ person.vote.like }} - dislike : {{ person.vote.dislike }}
+             
+              <app-votes [mylike]="person.vote.like" [mydislike]="person.vote.dislike"
+               (updateFromChildToParent)="receiveData($event, person)"
+              >
+
+              </app-votes>
+
+            <div class="text-right">
+                 
+                  <button class="btn btn-sm btn-dark mr-2"
+                   (click)="editPerson(person)"
+                  >
+                     <i class="fa fa-pencil"></i>
+                  </button>   
+
+                 <button class="btn btn-sm btn-warning"
+                  (click)="deletePerson(i)"
+                  >
+                      <i class="fa fa-trash"></i>
+                  </button>
+
+
+            </div>
+           
+          </li>
+      </ul>
+
+      <div 
+      class="alert alert-success" 
+      *ngIf="persons.length">
+         {{ persons.length }} person(s)
+     </div>
+
+      <div 
+       class="alert alert-danger" 
+       *ngIf="!persons.length">
+          Persons not found !!!
+      </div>
+  
+
+
     </div>
   </div>
 </div>
